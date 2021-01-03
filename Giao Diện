@@ -1,0 +1,100 @@
+from tkinter import *
+from tkinter.ttk import *
+from tkinter import messagebox
+import tkinter
+
+
+
+window = Tk()
+window.title("LAP TRINH AI")
+window.geometry("900x500")
+
+def draw(matrix):
+    for i in range(0,size):
+        for j in range(0,size):
+            if i==0 and j==0:
+                lbl = tkinter.Label(window,width=7,bg="yellow",borderwidth=3,relief="groove",height=3)
+                lbl.grid(column=j,row=i)
+            elif i== size-1 and j==size-1:
+                lbl = tkinter.Label(window,width=7,bg="red",borderwidth=3,relief="groove",height=3)
+                lbl.grid(column=j,row=i)
+            elif matrix[i][j] == 0:
+                lbl = tkinter.Label(window,width=7,bg="brown",borderwidth=3,relief="groove",height=3)
+                lbl.grid(column=j,row=i)
+            elif matrix[i][j]==2:
+                lbl = tkinter.Label(window,width=7,bg="blue",borderwidth=3,relief="groove",height=3)
+                lbl.grid(column=j,row=i)
+            else:
+                lbl = tkinter.Label(window,width=7,borderwidth=3,relief="groove",height=3)
+                lbl.grid(column=j,row=i)
+
+
+
+draw(B)
+
+def handleButtom():
+    draw(B)
+    a=Combo.get()
+    if a=="BFS":
+        node=(-1,-1)
+        path_BFS=[]
+        path_BFS=bfs(B,(0,0),(size-1,size-1),xang,0)
+        for i in range(0,size):
+            for j in range(0,size):
+                node=(i,j)
+                if node in path_BFS:
+                    lbl = tkinter.Label(window,width=7,bg="red",borderwidth=3,relief="groove",height=3)
+                    lbl.grid(column=j,row=i)
+    if a=="DFS":
+        node=(-1,-1)
+        path_DFS=[]
+        path_DFS=dfs(B,(0,0),(size-1,size-1),xang,0)
+        for i in range(0,size):
+            for j in range(0,size):
+                node=(i,j)
+                if node in path_DFS:
+                    lbl = tkinter.Label(window,width=7,bg="red",borderwidth=3,relief="groove",height=3)
+                    lbl.grid(column=j,row=i)
+    if a=="UCS":
+        node=(-1,-1)
+        path_UCS=[]
+        path_UCS=ucs(B,(0,0),(size-1,size-1),xang,0)
+        for i in range(0,size):
+            for j in range(0,size):
+                node=(i,j)
+                if node in path_UCS:
+                    lbl = tkinter.Label(window,width=7,bg="red",borderwidth=3,relief="groove",height=3)
+                    lbl.grid(column=j,row=i)
+    if a=="A*":
+        node=(-1,-1)
+        path_A=[]
+        path_A=A_Star(B,(0,0),(size-1,size-1),xang,0)
+        for i in range(0,size):
+            for j in range(0,size):
+                node=(i,j)
+                if node in path_A:
+                    lbl = tkinter.Label(window,width=7,bg="red",borderwidth=3,relief="groove",height=3)
+                    lbl.grid(column=j,row=i)
+    
+
+
+
+
+lbl=tkinter.Label(window,text="Thực Hành AI",fg="blue",font=("Arial",30))
+lbl.grid(column=11,row=1)
+
+Combo = Combobox(window,width=7)
+Combo['values']=("DFS","BFS","UCS","A*")
+Combo.current(0)
+Combo.grid(column=11,row=2)
+buttom_run = Button(window,text="RUN",command=handleButtom)
+buttom_run.grid(column=11,row=3)
+lbl1=tkinter.Label(window,text="Màu Đỏ là đích",fg="blue",font=("Arial",20))
+lbl1.grid(column=11,row=4)
+lbl2=tkinter.Label(window,text="Màu màu vàng là start",fg="blue",font=("Arial",20))
+lbl2.grid(column=11,row=5)
+lbl3=tkinter.Label(window,text="Màu màu lam là trạm xăng",fg="blue",font=("Arial",20))
+lbl3.grid(column=11,row=6)
+lbl4=tkinter.Label(window,text="Màu màu nâu là tường",fg="blue",font=("Arial",20))
+lbl4.grid(column=11,row=7)
+window.mainloop()
