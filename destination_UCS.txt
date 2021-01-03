@@ -1,0 +1,27 @@
+def destination_ucs(matrix,node):
+    _list=[]
+    coordinates_x = node[0]
+    coordinates_y = node[1]
+    node1=(-1,-1)
+    node2=(-1,-1)
+    node3=(-1,-1)
+    node4=(-1,-1)
+    
+    if(coordinates_x-1 >= 0):
+        node1=(coordinates_x-1,coordinates_y)
+        if(matrix[node1[0]][node1[1]] > 0):
+            _list.append([node1,matrix[node1[0]][node1[1]]])
+    if(coordinates_y+1 < len(matrix)):
+        node2=(coordinates_x,coordinates_y+1)
+        if(matrix[node2[0]][node2[1]] > 0):
+            _list.append([node2,matrix[node2[0]][node2[1]]])
+    if(coordinates_x+1< len(matrix)):
+        node3=(coordinates_x+1,coordinates_y)
+        if(matrix[node3[0]][node3[1]] > 0):
+            _list.append([node3,matrix[node3[0]][node3[1]]])
+    if(coordinates_y-1 >= 0):
+        node4 = (coordinates_x,coordinates_y-1)
+        if(matrix[node4[0]][node4[1]] > 0):
+            _list.append([node4,matrix[node4[0]][node4[1]]])
+    _list.sort(key=lambda x:x[1])  
+    return _list
