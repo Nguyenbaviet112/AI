@@ -1,0 +1,12 @@
+def tinhxang(matrix ,path, xang):
+    _temp = xang
+    j=(0,0)
+    for i in path:       
+        if int(xang) - int(matrix[i[0]][i[1]]) >= 0:
+            xang = int(xang) - int(matrix[i[0]][i[1]])
+            j=i
+            if matrix[i[0]][i[1]] == 2:
+                xang = _temp
+        else:
+            break
+    return j

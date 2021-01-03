@@ -1,0 +1,28 @@
+def dfs(matrix,start,end,xang,dk):
+    _tempxang =xang
+    visited=[]
+    path=[]
+    stack=[]
+    stack.append([start,path])
+    while stack:
+        node,path = stack.pop()
+        if node not in visited:
+            visited.append(node)           
+        if node == end:            
+            visited.append(node)                        
+            newnodeend= tinhxang(matrix,path,xang)
+            if newnodeend == end:        
+                if dk == 1:
+                    visited.pop()
+                    return visited        
+                return path
+            else:
+               return dfs(matrix,start,newnodeend,xang,1)
+        else:
+            listContNode = destination(matrix,node)
+            for newNode in listContNode:
+                if newNode in visited:
+                    continue
+                newpath = path + [newNode]             
+                stack.append([newNode,newpath])                               
+    return visited
