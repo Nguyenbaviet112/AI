@@ -1,3 +1,36 @@
+def heuristic(node,end):
+    return abs(node[0]-end[0]) + abs(node[1]-end[1])
+
+def destination_A_Star(matrix,node,end):
+    _list=[]
+    coordinates_x = node[0]
+    coordinates_y = node[1]
+    node1=(-1,-1)
+    node2=(-1,-1)
+    node3=(-1,-1)
+    node4=(-1,-1)
+    
+    if(coordinates_x-1 >= 0):
+        node1=(coordinates_x-1,coordinates_y)
+        if(matrix[node1[0]][node1[1]] > 0):
+            _list.append([node1,matrix[node1[0]][node1[1]] + heuristic(node1,end)])
+    if(coordinates_y+1 < len(matrix)):
+        node2=(coordinates_x,coordinates_y+1)
+        if(matrix[node2[0]][node2[1]] > 0):
+            _list.append([node2,matrix[node2[0]][node2[1]] + heuristic(node2,end)])
+    if(coordinates_x+1< len(matrix)):
+        node3=(coordinates_x+1,coordinates_y)
+        if(matrix[node3[0]][node3[1]] > 0):
+            _list.append([node3,matrix[node3[0]][node3[1]] + heuristic(node3,end)])
+    if(coordinates_y-1 >= 0):
+        node4 = (coordinates_x,coordinates_y-1)
+        if(matrix[node4[0]][node4[1]] > 0):
+            _list.append([node4,matrix[node4[0]][node4[1]] + heuristic(node4,end)])
+    _list.sort(key=lambda x:x[1])  
+    return _list
+
+
+
 def A_Star(matrix,start,end,xang,dk):
     _tempxang = xang
     visited=[]
