@@ -1,0 +1,39 @@
+def bfs(matrix, start, end, xang, dk):
+    _tempxang = xang
+    visited = []
+    path = []
+    queue = []
+    queue.append([start, path])
+    while queue:
+        node, path = queue.pop(0)
+        if node not in visited:
+            visited.append(node)
+        if node == end:
+            visited.append(node)
+            newnodeend = tinhxang(matrix, path, xang)
+            if newnodeend == end:
+                if dk == 1:
+                    visited.pop()
+                    return visited
+                return path
+            else:
+                return bfs(matrix, start, newnodeend, xang, 1)
+        else:
+            listContNode = destination(matrix, node)
+            for newNode in listContNode:
+                if newNode in visited:
+                    continue
+                newpath = path + [newNode]
+
+                queue.append([newNode, newpath])
+
+    return visited
+
+
+f = open('matran.txt', 'r')
+xang = f.readline(10)
+size = int(xang[6])
+xang = int(xang[2])
+matran = f.read()
+_list = []
+d = 0
